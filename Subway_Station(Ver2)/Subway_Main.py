@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.font import Font
 import tkinter
 
-import Subway_Shortest_Path as sb
+import Subway_Route as sr
 import Subway_Distance as sd
 import Subway_Transfer as st
 
@@ -53,7 +53,7 @@ label_transfer.place(x=950, y=575)
 label_bfs = Label(subway)
 label_bfs.place(x=950, y=450)
 def bfs_start():
-    result = sb.shortest_path_bfs(input_start.get(), input_end.get())
+    result = sr.shortest_route(input_start.get(), input_end.get())
     label_bfs.configure(text="경로:" + "->".join(result), wraplength=300, font=subway_font)
     transfer_info = st.transfer(result)
     label_transfer.configure(text='환승 정보: ' + '\n'.join(transfer_info), wraplength=400, font=subway_font)

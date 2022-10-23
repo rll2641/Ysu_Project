@@ -1,3 +1,7 @@
+# 호선 - 환승
+# 주변역 - bfs
+# 거리 - dijkstra
+
 station_information = { 
     '용산': {
         '호선': ['1호선', '경의중앙선'],

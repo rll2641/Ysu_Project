@@ -3,7 +3,7 @@ from collections import deque
 import Subway_Information as si
 
 # 최단경로 (환승 고려 x)
-def shortest_path_bfs(start, end):
+def shortest_route(start, end):
     que = deque([[start]])
     visited = [start]
     
