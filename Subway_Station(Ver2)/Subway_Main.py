@@ -5,6 +5,7 @@ import tkinter
 import Subway_Route as sr
 import Subway_Distance as sd
 import Subway_Transfer as st
+import Subway_Shortest_Transfer as sst
 
 # 타이틀 이름, 크기
 subway = Tk()
@@ -45,16 +46,14 @@ btn_end.config(width=10, height=2)
 btn_end.config(command=receive_end)
 btn_end.place(x=1100, y=200)
 
-# 환승 정보 출력
-label_transfer = Label(subway)
-label_transfer.place(x=950, y=575)
-
 # 최단 경로 출력
 label_bfs = Label(subway)
-label_bfs.place(x=950, y=450)
+label_bfs.place(x=950, y=400)
+label_transfer = Label(subway)
+label_transfer.place(x=950, y=500)
 def bfs_start():
     result = sr.shortest_route(input_start.get(), input_end.get())
-    label_bfs.configure(text="경로:" + "->".join(result), wraplength=300, font=subway_font)
+    label_bfs.configure(text="경로:" + "->".join(result), wraplength=400, font=subway_font)
     transfer_info = st.transfer(result)
     label_transfer.configure(text='환승 정보: ' + '\n'.join(transfer_info), wraplength=400, font=subway_font)
     
@@ -66,15 +65,20 @@ btn_bfs.place(x=1070, y=300)
 
 # 최단 거리 출력
 label_dijk = Label(subway)
-label_dijk.place(x=950, y=400)
+label_dijk.place(x=950, y=600)
+label_transfer2 = Label(subway)
+label_transfer2.place(x=950, y=700)
 def dijk_start():
-    result = sd.shortest_distance_dijk(input_start.get())
-    label_dijk.configure(text="거리: " + str(round(result[input_end.get()], 2)) + "km", font=subway_font)
+    result = sst.shortest_transfer(input_start.get(), input_end.get())
+    label_dijk.configure(text="경로:" + "->".join(result), wraplength=400 ,font=subway_font)
+    transfer_info = st.transfer(result)
+    label_transfer2.configure(text='환승 정보: ' + '\n'.join(transfer_info), wraplength=400, font=subway_font)
     
 # 최단 거리
-btn_dijk = Button(subway, text="최단 거리")
+btn_dijk = Button(subway, text="최단 환승")
 btn_dijk.config(width=10, height=2)
 btn_dijk.config(command=dijk_start)
 btn_dijk.place(x=1150, y=300)
-    
+
+# 최소 환승
 subway.mainloop()
