@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 import Subway_main as sm
+import Subway_transfer as st
 
 # 기본 상태 조정
 Subway = Tk()
@@ -36,7 +37,6 @@ end_button.place(x=530, y=100)
 
 # 최단 경로 출력을 위한 새 창
 def new_window():
-    global Subway_route
     Subway_route = Toplevel(Subway)
     Subway_route.title('최단 경로')
     Subway_route.geometry("700x700")
@@ -44,8 +44,10 @@ def new_window():
     
     result = sm.transfer(start_station_input.get(), end_station_input.get())
     route = tk.Label(Subway_route, text='경로 : ' + '->'.join(result),  font=('맑은 고딕',20), wraplength=550).place(x=80, y=20)
-        
-        
+    
+    check_transfer = st.transfer(result)
+    tranfer = tk.Label(Subway_route, text='환승 정보 : ' + '\n'.join(check_transfer), font=('맑은 고딕',20)).place(x=80, y=300)
+    
 # 최단 경로 시작 버튼
 shortest_route_botton = Button(Subway, text='시작')
 shortest_route_botton.config(width=12, height=3)
