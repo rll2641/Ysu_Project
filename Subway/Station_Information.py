@@ -10,4 +10,3 @@ for j in range(st_df.shape[0]):
     if pd.notnull(st_df['SUBWAY_LINE'].loc[j]):
         st_infor[st_name]['호선'] = st_df['SUBWAY_LINE'].loc[j].split(',')
         st_infor[st_name]['주변역'] = st_df['SUBWAY_NEAR'].loc[j].split(',')
-        
