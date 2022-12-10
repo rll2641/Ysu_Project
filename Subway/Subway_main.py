@@ -32,3 +32,7 @@ def transfer(start, end, trans = True):
             return tr_3
         else:
             return shortest_route
+
+print(transfer('강남', '이태원'))
+# 6->(3,6) 3->(3,신분당) 신분당
+# (2,신분당)신분당 ->
