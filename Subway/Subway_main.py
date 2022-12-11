@@ -20,10 +20,7 @@ def transfer(start, end, trans = True):
         # 조건1
         tr_1 = Shortest_Route.shortest_route_dfs_1(start, end)
         # 조건2
-        for line in end_line:
-            tr_2 = [0 for _ in range(50)]
-            s_route = Shortest_Route.shortest_route_dfs_2(start, end, line)
-            tr_2 = min(tr_2, s_route, key=len)
+        tr_2 = Shortest_Route.shortest_route_dfs_2(start, end)
         # 조건1,2 비교
         shortest_route = min(tr_1, tr_2, key=len)
         # 조건1,2번이 없을 시
