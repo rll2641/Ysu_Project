@@ -17,15 +17,13 @@ def transfer(start, end, trans = True):
         return Shortest_Route.shortest_route_dfs(start, end, st_line)
     # 환승이 필요한 경우
     else:
-        # 조건1
         tr_1 = Shortest_Route.shortest_route_dfs_1(start, end)
-        # 조건2
         tr_2 = Shortest_Route.shortest_route_dfs_2(start, end)
-        # 조건1,2 비교
-        shortest_route = min(tr_1, tr_2, key=len)
+        if len(tr_1) < len(tr_2) + 3:
+            return tr_1
+        elif len(tr_1) > len(tr_2) + 3:
+            return tr_2
         # 조건1,2번이 없을 시
-        if len(shortest_route) == 50:
+        else:
             tr_3 = Shortest_Route.shortest_route_bfs_3(start, end)
             return tr_3
-        else:
-            return shortest_route
