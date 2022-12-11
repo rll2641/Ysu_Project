@@ -1,5 +1,4 @@
 from collections import deque
-import pandas
 import Station_Information as si
 from Subway_csv import st_line_name as sl
 
@@ -28,7 +27,8 @@ from Subway_csv import st_line_name as sl
 -> 환승 3번이상인 경우는 존재하긴 하나, api에서 제공하는 라인들의 경우
    독립된 라인이 없기에 경우의 수가 극소수이다. 
 -> 환승 3번의 경우, 마찬가지로 투 포인터로 움직여, 환승역에서 dfs(조건2) 부를 시,
-환승 3번의 조건이 충족됨, 4번, 5번도 마찬가지.
+환승 3번의 조건이 충족됨.
+-> 환승 n번의 경우, 환승(n-1)의 dfs를 실행하면 된다.
 '''
 
 # 환승이 불필요한 경우(dfs)
@@ -74,22 +74,20 @@ def shortest_route_dfs_1(start, end):
                 for line in si.st_infor.get(st_list[left]).get('호선'):
                     if line in si.st_infor.get(end).get('호선'):
                         route = shortest_route_dfs(st_list[left], end, line)
-                        left_visited.pop()
                         route = left_visited + route
                         left_short_route = min(left_short_route, route, key=len)
-                    if st_list[left] not in left_visited:
-                        left_visited.append(st_list[left])
-                        
+                if st_list[left] not in left_visited:
+                    left_visited.append(st_list[left])
+                            
             if right < len(st_list):
                 for line in si.st_infor.get(st_list[right]).get('호선'):
                     if line in si.st_infor.get(end).get('호선'):
                         route = shortest_route_dfs(st_list[right], end, line)
-                        right_visited.pop()
                         route = right_visited + route
                         right_short_route = min(right_short_route, route, key=len)
-                    if st_list[right] not in right_visited:
-                        right_visited.append(st_list[right])
-            
+                if st_list[right] not in right_visited:
+                    right_visited.append(st_list[right])                    
+              
             left -= 1
             right += 1
             
@@ -119,18 +117,18 @@ def shortest_route_dfs_2(start, end):
                         route = shortest_route_dfs_1(st_list[left], end)
                         route = left_visited + route
                         left_short_route = min(left_short_route, route, key=len)
-                    if st_list[left] not in left_visited:
-                        left_visited.append(st_list[left])
-            
+                if st_list[left] not in left_visited:
+                    left_visited.append(st_list[left])  
+                    
             if right < len(st_list):
                 for line in si.st_infor.get(st_list[right]).get('호선'):
                     if (line not in si.st_infor.get(start).get('호선')) and (line not in si.st_infor.get(end).get('호선')):
                         route = shortest_route_dfs_1(st_list[right], end)
                         route = right_visited + route
                         right_short_route = min(right_short_route, route, key=len)
-                    if st_list[right] not in left_visited:
-                        right_visited.append(st_list[right])
-                        
+                if st_list[right] not in left_visited:
+                    right_visited.append(st_list[right])    
+                      
             left -= 1
             right += 1
             
