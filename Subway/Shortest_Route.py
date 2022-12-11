@@ -128,7 +128,6 @@ def shortest_route_dfs_2(start, end):
                         route = shortest_route_dfs_1(st_list[right], end)
                         route = right_visited + route
                         right_short_route = min(right_short_route, route, key=len)
-                        print(right_short_route)
                     if st_list[right] not in left_visited:
                         right_visited.append(st_list[right])
                         
