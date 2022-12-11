@@ -6,3 +6,6 @@
 최단 경로를 통해 환승정보 저장 -> Subway_transfer.py
 tkinter을 제외한 main 실행 파일 -> Subway_main.py
 최단경로 시각화 -> Subway_gui.py
+
+투 포인터 알고리즘을 활용하였으나 같은 호선에서 분기가 나눠지는 경우, 
+투 포인터를 적용하지 못하므로 bfs와 dfs의 조합으로 알고리즘 작성을 해야한다.
